@@ -22,24 +22,18 @@ RUN pip install virtualenv
 RUN pip install ansible==2.0
 RUN pip install IPython
 
+# create logging dirs
+# RUN mkdir /var/log/uwsgi
+# RUN mkdir /var/log/pip
+# RUN mkdir /var/log/nginx
+
 # Create site dir
 WORKDIR /opt/site/
-
-# Create log dirs, etc.
-RUN mkdir /var/log/uwsgi
-RUN mkdir /var/log/pip
 
 # Scrappy init scripts script
 ADD ansible /opt/site/ansible/
 ADD ansible/hosts /etc/ansible/hosts
 RUN chmod -R 755 /opt/site/ansible/
-
-# Nginx stuff
-RUN /etc/init.d/nginx start
-RUN rm /etc/nginx/sites-enabled/default
-ADD configs/site_nginx.conf /opt/site/site_nginx.conf
-RUN ln -s /opt/site_nginx /etc/nginx/conf.d/
-RUN /etc/init.d/nginx restart
 
 # Install uwsgi ini file
 RUN mkdir /etc/uwsgi/

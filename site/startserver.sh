@@ -1,9 +1,11 @@
 #! /usr/bin/env bash
 
+echo 'set log permissions'
+chmod -R 666 /var/log
+
 echo 'replace nginx configs'
-rm /etc/nginx/sites-enabled/default
+# rm /etc/nginx/sites-enabled/default
 ln -s /opt/site/current/configs/site_nginx.conf /etc/nginx/conf.d/
-# /etc/init.d/nginx restart
 
 echo 'start nginx'
 /etc/init.d/nginx start

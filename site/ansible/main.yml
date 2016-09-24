@@ -5,7 +5,6 @@
   tasks:
     - name: install latest pip in virtualenv
       pip:
-        name: pip
         state: latest
         virtualenv: '/opt/site/current/venv/'
         extra_args: '--log /var/log/site/pip.log'

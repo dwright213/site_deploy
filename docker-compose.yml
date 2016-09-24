@@ -9,8 +9,8 @@ site:
     - /opt/site/docker-venv/:/opt/site/current/venv/
     # Home dir
     - /opt/site/home/:/root/
-    # Logs
-    - /opt/site/logs/uwsgi/:/var/log/uwsgi
+    # # Logs
+    # - ~/src/site/log/:/var/log
   ports:
     - "0.0.0.0:80:80"
   command: 'bash /opt/site/startserver.sh'
