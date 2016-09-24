@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  remote_user: root
+
+  tasks:
+    - name: install latest pip in virtualenv
+      pip:
+        name: pip
+        state: latest
+        virtualenv: '/opt/site/current/venv/'
+        extra_args: '--log /var/log/site/pip.log'
+      tags: ['pip']
+
+      name: install requirements
+      pip:
+        requirements: '/opt/site/current/requirements.txt'
+        virtualenv: '/opt/site/current/venv/'
+      tags: ['pip', 'requirements']
+
+    # - name: update uwsgi configs
+    #   file:
+    #     src: '/opt/site/current/configs/site_uwsgi.ini'
+    #     dest: '/etc/uwsgi/vassals'
+    #     state: link
+    #     force: yes
+    #   notify: restart nginx
+    #   tags: ['uwsgi']
+
+  #   - name: update nginx configs
+  #     file:
+  #       src: '/opt/site/current/configs/site_nginx.conf'
+  #       dest: '/etc/nginx/conf.d/'
+  #       state: link
+  #       force: yes
+  #     notify: restart nginx
+  #     tags: ['nginx']
+
+  # handlers:
+  #  - name: restart nginx
+  #    action: service name=nginx state=restarted
