@@ -33,8 +33,8 @@ RUN chmod -R 755 /opt/site/ansible/
 # Install uwsgi ini file
 RUN mkdir /etc/uwsgi/
 RUN mkdir /etc/uwsgi/vassals/
-# ADD site_uwsgi.ini /etc/uwsgi/
-# RUN ln -s /opt/site/configs/site_uwsgi.ini /etc/uwsgi/vassals
-#
+ADD site_uwsgi.ini /etc/uwsgi/
+RUN ln -s /opt/site/configs/site_uwsgi.ini /etc/uwsgi/vassals
+
 ADD startserver.sh /opt/site/
 
