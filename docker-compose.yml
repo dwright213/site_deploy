@@ -8,7 +8,10 @@ site:
     # Virtual env
     - /opt/site/docker-venv/:/opt/site/current/venv/
     # Home dir
+    - ~/src/site_deploy:/opt/site/deploy/
+    # Home dir
     - /opt/site/home/:/root/
+
     # # Logs
     # - ~/src/site/log/:/var/log
   ports:

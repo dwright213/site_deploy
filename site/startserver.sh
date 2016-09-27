@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 echo 'set log permissions'
-chmod -R 666 /opt/site/current/log
+chmod -R 666 /opt/site/current/log/
 
 echo 'replace nginx configs'
 rm /etc/nginx/sites-enabled/default

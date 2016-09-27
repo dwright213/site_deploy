@@ -10,31 +10,31 @@
         extra_args: '--log opt/site/current/log/pip.log'
       tags: ['pip']
 
-      name: install requirements
-      pip:
-        requirements: '/opt/site/current/requirements.txt'
-        virtualenv: '/opt/site/current/venv/'
-      tags: ['pip', 'requirements']
 
+    - name: update uwsgi configs
+      file:
+        src: '/opt/site/current/configs/site_uwsgi.ini'
+        dest: '/etc/uwsgi/vassals'
+        state: link
+        force: yes
+        notify: restart nginx
+      tags: ['uwsgi']
 
-  # - name: update uwsgi configs
-  #   file:
-  #     src: '/opt/site/current/configs/site_uwsgi.ini'
-  #     dest: '/etc/uwsgi/vassals'
-  #     state: link
-  #     force: yes
-  #   notify: restart nginx
-  #   tags: ['uwsgi']
-
+    # - name: install requirements
+    #   pip:
+    #     name: install
+    #     virtualenv: '/opt/site/current/venv/'
+    #     requirements: '/opt/site/current/requirements.txt'
+    #   tags: ['pip', 'requirements']
   #   - name: update nginx configs
   #     file:
   #       src: '/opt/site/current/configs/site_nginx.conf'
   #       dest: '/etc/nginx/conf.d/'
   #       state: link
   #       force: yes
-  #     notify: restart nginx
+  #       notify: restart nginx
   #     tags: ['nginx']
 
   # handlers:
-  #  - name: restart nginx
-  #    action: service name=nginx state=restarted
+  # - name: restart nginx
+  # action: service name=nginx state=restarted
