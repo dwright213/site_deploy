@@ -7,8 +7,8 @@ site:
     - ~/src/site/:/opt/site/current/
     # Virtual env
     - /opt/site/docker-venv/:/opt/site/current/venv/
-    # Home dir
-    - ~/src/site_deploy:/opt/site/deploy/
+    # Ansible stuff dir
+    - ~/src/site_deploy/site/ansible/:/opt/site/ansible/
     # Home dir
     - /opt/site/home/:/root/
 

@@ -10,6 +10,8 @@
         extra_args: '--log opt/site/current/log/pip.log'
       tags: ['pip']
 
+    - pip: requirements=/opt/site/current/requirements.txt virtualenv=/opt/site/current/venv
+      tags: ['requirements']
 
     - name: update uwsgi configs
       file:
@@ -20,12 +22,7 @@
         notify: restart nginx
       tags: ['uwsgi']
 
-    # - name: install requirements
-    #   pip:
-    #     name: install
-    #     virtualenv: '/opt/site/current/venv/'
-    #     requirements: '/opt/site/current/requirements.txt'
-    #   tags: ['pip', 'requirements']
+
   #   - name: update nginx configs
   #     file:
   #       src: '/opt/site/current/configs/site_nginx.conf'

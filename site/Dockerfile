@@ -26,9 +26,9 @@ RUN pip install IPython
 WORKDIR /opt/site/
 
 # Scrappy init scripts script
-ADD ansible /opt/site/ansible/
-ADD ansible/hosts /etc/ansible/hosts
-RUN chmod -R 755 /opt/site/ansible/
+# ADD ansible /opt/site/ansible/
+# ADD ansible/hosts /etc/ansible/hosts
+# RUN chmod -R 755 /opt/site/ansible/
 
 # Install uwsgi ini file
 RUN mkdir /etc/uwsgi/
