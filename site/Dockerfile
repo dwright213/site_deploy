@@ -36,5 +36,3 @@ RUN mkdir /etc/uwsgi/vassals/
 ADD site_uwsgi.ini /etc/uwsgi/
 RUN ln -s /opt/site/current/configs/site_uwsgi.ini /etc/uwsgi/vassals
 
-ADD startserver.sh /opt/site/
-

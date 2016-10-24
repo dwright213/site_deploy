@@ -1,7 +1,14 @@
+
+mongodb:
+  image: "mongo:3.2"
+  volumes:
+  - /opt/site/docker-mongo/:/data/db/
+  command: "--storageEngine wiredTiger"
+
 site:
   build: site
-  # links:
-  #   - mysql
+  links:
+      - mongodb
   volumes:
     # Source
     - ~/src/site/:/opt/site/current/
@@ -11,9 +18,11 @@ site:
     - ~/src/site_deploy/site/ansible/:/opt/site/ansible/
     # Home dir
     - /opt/site/home/:/root/
-
     # # Logs
-    # - ~/src/site/log/:/var/log
+    - ~/opt/site/log/:/var/log/
+  environment:
+    CL_MONGODB_HOST: mongodb:27017
+    CL_MONGODB_USE_SSL: 'False'
   ports:
     - "0.0.0.0:80:80"
   command: 'bash /opt/site/startserver.sh'
