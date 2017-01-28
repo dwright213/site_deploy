@@ -2,7 +2,6 @@
 - hosts: localhost
   remote_user: root
 
-
   tasks:
     - name: install latest pip in virtualenv
       pip:
