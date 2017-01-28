@@ -10,19 +10,20 @@ site:
   links:
       - mongodb
   volumes:
-    # Source
+    # Site code
     - ~/src/site/:/opt/site/current/
-    # Virtual env
-    - /opt/site/docker-venv/:/opt/site/current/venv/
-    # Ansible stuff dir
+    # Ansible/shell setup code
     - ~/src/site_deploy/site/ansible/:/opt/site/ansible/
+    # Virtual env
+    # - /opt/site/docker-venv/:/opt/site/current/venv/    
     # Home dir
     - /opt/site/home/:/root/
-    # # Logs
-    - ~/opt/site/log/:/var/log/
+    # Logs
+    - /opt/site/log/:/var/log/
   environment:
     CL_MONGODB_HOST: mongodb:27017
     CL_MONGODB_USE_SSL: 'False'
   ports:
     - "0.0.0.0:80:80"
-  command: 'bash /opt/site/startserver.sh'
+  command: 'bash /opt/site/ansible/startserver.sh'
+  # command: /opt/site/current/venv/bin/uwsgi --ini /opt/site/current/configs/site_uwsgi.ini
