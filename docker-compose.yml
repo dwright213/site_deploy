@@ -15,7 +15,7 @@ site:
     # Ansible/shell setup code
     - ~/src/site_deploy/site/ansible/:/opt/site/ansible/
     # Virtual env
-    # - /opt/site/docker-venv/:/opt/site/current/venv/    
+    - /opt/site/docker-venv/:/opt/site/current/venv/
     # Home dir
     - /opt/site/home/:/root/
     # Logs

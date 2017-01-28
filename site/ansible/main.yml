@@ -3,16 +3,21 @@
   remote_user: root
 
   tasks:
+
+    - name: create log dirs or fail trying
+      command: bash /opt/site/ansible/create_logs.sh
+      tags: ['shell', 'logs']
+
     - name: install latest pip in virtualenv
       pip:
         name: pip
         state: latest
-        virtualenv: '/opt/site/current/venv/'
+        virtualenv: '/opt/site/current/venv'
         extra_args: '--log /var/log/pip.log'
       tags: ['pip', 'install']
 
     - name: install requirements
-      pip: 
+      pip:
         requirements: /opt/site/current/requirements.txt
         virtualenv: /opt/site/current/venv/
       tags: ['requirements', 'install', 'pip']
@@ -35,10 +40,6 @@
         force: yes
       notify: restart nginx
       tags: ['nginx', 'server']
-
-    - name: create log dirs or fail trying
-      command: bash create_logs.sh
-      tags: ['shell', 'logs']
 
   handlers:
   - name: restart nginx
