@@ -22,25 +22,25 @@
         virtualenv: /opt/site/current/venv/
       tags: ['requirements', 'install', 'pip']
 
-    - name: update uwsgi configs
-      file:
-        src: '/opt/site/current/configs/site_uwsgi.ini'
-        dest: '/etc/uwsgi/vassals'
-        state: link
-        force: yes
-      notify: restart nginx
-      ignore_errors: yes
-      tags: ['uwsgi', 'server']
+  #   - name: update uwsgi configs
+  #     file:
+  #       src: '/opt/site/current/configs/site_uwsgi.ini'
+  #       dest: '/etc/uwsgi/vassals'
+  #       state: link
+  #       force: yes
+  #     notify: restart nginx
+  #     ignore_errors: yes
+  #     tags: ['uwsgi', 'server']
 
-    - name: update nginx configs
-      file:
-        src: '/opt/site/current/configs/site_nginx.conf'
-        dest: '/etc/nginx/conf.d'
-        state: link
-        force: yes
-      notify: restart nginx
-      tags: ['nginx', 'server']
+  #   - name: update nginx configs
+  #     file:
+  #       src: '/opt/site/current/configs/site_nginx.conf'
+  #       dest: '/etc/nginx/conf.d'
+  #       state: link
+  #       force: yes
+  #     notify: restart nginx
+  #     tags: ['nginx', 'server']
 
-  handlers:
-  - name: restart nginx
-    command: service nginx restart
+  # handlers:
+  # - name: restart nginx
+  #   command: service nginx restart
