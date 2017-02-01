@@ -1,43 +1,46 @@
-mongodb:
-  image: "mongo:3.2"
-  volumes:
-  - /opt/site/docker-mongo/:/data/db/
-  command: "--storageEngine wiredTiger"
+version: '2'
 
-nginx:
-  image: nginx:latest
-  links:
-    - site
-  ports:
-    - "80:80"
-    - "8080:8080"
-  volumes:
-    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    - /opt/site/log/:/var/log/
+services:
+  mongodb:
+    image: "mongo:3.2"
+    volumes:
+    - /opt/site/docker-mongo/:/data/db/
+    command: "--storageEngine wiredTiger"
 
-site:
-  build: site
-  links:
+  nginx:
+    image: nginx:latest
+    links:
+      - site:uwsgi
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/site/log/:/var/log/
+
+  site:
+    build: site
+    links:
       - mongodb
-  volumes:
-    # Site code
-    - ~/src/site/:/opt/site/current/
-    # Ansible/shell setup code
-    - ~/src/site_deploy/site/:/opt/site/
-    # Virtual env
-    - /opt/site/docker-venv/:/opt/site/current/venv/
-    # Home dir
-    - /opt/site/home/:/root/
-    # Logs
-    - /opt/site/log/:/var/log/
-  environment:
-    CL_MONGODB_HOST: mongodb:27017
-    CL_MONGODB_USE_SSL: 'False'
-  ports:
-    - "3031:3031"
-  # expose:
-  #   - '3031'
+    # depends_on:
+    #   - mongodb
+    volumes:
+      # Site code
+      - ~/src/site/:/opt/site/current/
+      # Ansible/shell setup code
+      - ~/src/site_deploy/site/:/opt/site/
+      # Virtual env
+      - /opt/site/docker-venv/:/opt/site/current/venv/
+      # Home dir
+      - /opt/site/home/:/root/
+      # Logs
+      - /opt/site/log/:/var/log/
+    environment:
+      CL_MONGODB_HOST: mongodb:27017
+      CL_MONGODB_USE_SSL: 'False'
+    expose:
+      - '3031'
 
-  # command: 'bash /opt/site/ansible/startserver.sh'
-  # command: /opt/site/current/venv/bin/uwsgi --ini /opt/site/site_uwsgi.ini
-  command: current/venv/bin/uwsgi --emperor /opt/site/current/
+    # command: 'bash /opt/site/ansible/startserver.sh'
+    # command: /opt/site/current/venv/bin/uwsgi --ini /opt/site/site_uwsgi.ini
+    command: current/venv/bin/uwsgi --emperor /opt/site/current/
