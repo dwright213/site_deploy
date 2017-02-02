@@ -13,7 +13,6 @@ services:
       - site:uwsgi
     ports:
       - "80:80"
-      - "8080:8080"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - /opt/site/log/:/var/log/
@@ -22,8 +21,6 @@ services:
     build: site
     links:
       - mongodb
-    # depends_on:
-    #   - mongodb
     volumes:
       # Site code
       - ~/src/site/:/opt/site/current/

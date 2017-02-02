@@ -28,3 +28,6 @@ WORKDIR /opt/site/
 RUN mkdir /etc/uwsgi/
 RUN mkdir /etc/uwsgi/vassals/
 
+# Install node/npm/etc
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN apt-get install nodejs -y
